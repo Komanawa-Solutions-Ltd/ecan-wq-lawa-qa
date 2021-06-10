@@ -1,0 +1,14 @@
+source:
+  api_endpoint: http://data.ecan.govt.nz/
+  hts: WQLawa2019.hts
+  datasets: [Nitrate-N Nitrite-N, Total Nitrogen, Dissolved Inorganic Nitrogen, Ammoniacal Nitrogen, Dissolved Reactive Phosphorus, Total Phosphorus, Turbidity, pH (Field), Black Disc Clarity, E. coli]
+    # E. coli:
+    #   min: 0
+
+
+remote:
+  email:
+    sender_address: noreply@tethys-ts.xyz
+    sender_password: tethys-bot
+    receiver_address: mullenkamp1@gmail.com
+    smtp_server: mail.tethys-ts.xyz
