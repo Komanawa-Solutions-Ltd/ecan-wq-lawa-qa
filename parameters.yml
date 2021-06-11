@@ -1,6 +1,6 @@
 source:
   api_endpoint: http://data.ecan.govt.nz/
-  hts: WQLawa2019.hts
+  hts: [WQLawa2019.hts, WQLawa.hts, WQRecLawa.hts]
   datasets: [Nitrate-N Nitrite-N, Total Nitrogen, Dissolved Inorganic Nitrogen, Ammoniacal Nitrogen, Dissolved Reactive Phosphorus, Total Phosphorus, Turbidity, pH (Field), Black Disc Clarity, E. coli]
     # E. coli:
     #   min: 0
