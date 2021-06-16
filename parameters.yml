@@ -10,7 +10,7 @@ source:
     Total Nitrogen:
       min: 0
       max: 30
-    # Dissolved Inorganic Nitrogen1:
+    # Dissolved Inorganic Nitrogen:
     #   min: 0
     #   max: 30
     Ammoniacal Nitrogen:

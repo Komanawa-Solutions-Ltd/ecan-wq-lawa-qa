@@ -10,6 +10,8 @@ import yaml
 import numpy as np
 import pandas as pd
 from hilltoppy import web_service as ws
+import requests
+from time import sleep
 # from sklearn.neighbors import LocalOutlierFactor
 
 pd.options.display.max_columns = 10
@@ -91,7 +93,25 @@ def get_results(base_url, hts, mtype, ref):
     ### Get data
     res_list = []
     for s in ref:
-        res = ws.get_data(base_url, hts, s, mtype).Value
+        timer = 5
+        while timer > 0:
+            try:
+                res = ws.get_data(base_url, hts, s, mtype).Value
+                break
+            except requests.exceptions.ConnectionError as err:
+                print(s + ' and ' + mtype + ' error: ' + str(err))
+                timer = timer - 1
+                sleep(30)
+            except ValueError as err:
+                print(s + ' and ' + mtype + ' error: ' + str(err))
+                break
+            except Exception as err:
+                print(str(err))
+                timer = timer - 1
+                sleep(30)
+
+            if timer == 0:
+                raise ValueError('The Hilltop request tried too many times...the server is probably down')
         res_list.append(res)
 
     res1 = pd.concat(res_list)
