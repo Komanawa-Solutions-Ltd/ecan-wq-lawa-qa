@@ -1,14 +1,37 @@
 source:
   api_endpoint: http://data.ecan.govt.nz/
-  hts: [WQLawa2019.hts, WQLawa.hts, WQRecLawa.hts]
-  datasets: [Nitrate-N Nitrite-N, Total Nitrogen, Dissolved Inorganic Nitrogen, Ammoniacal Nitrogen, Dissolved Reactive Phosphorus, Total Phosphorus, Turbidity, pH (Field), Black Disc Clarity, E. coli]
-    # E. coli:
+  hts: WQLawa2019.hts
+  min_date: '1960-01-01'
+  std_factor: 4
+  iqr_factor: 4
+  mtypes:
+    Nitrate-N Nitrite-N:
+      min: 0
+      max: 30
+    Total Nitrogen:
+      min: 0
+      max: 30
+    # Dissolved Inorganic Nitrogen1:
     #   min: 0
-
-
-remote:
-  email:
-    sender_address: noreply@tethys-ts.xyz
-    sender_password: tethys-bot
-    receiver_address: mullenkamp1@gmail.com
-    smtp_server: mail.tethys-ts.xyz
+    #   max: 30
+    Ammoniacal Nitrogen:
+      min: 0
+      max: 10
+    Dissolved Reactive Phosphorus:
+      min: 0
+      max: 2
+    Total Phosphorus:
+      min: 0
+      max: 10
+    Turbidity:
+      min: 0
+      max: 2000
+    pH (Field):
+      min: 6
+      max: 12
+    Black Disc Clarity:
+      min: 0
+      max: 30
+    E. coli:
+      min: 0
+      max: 5000
