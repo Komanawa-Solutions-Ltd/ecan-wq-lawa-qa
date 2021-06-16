@@ -1,7 +1,6 @@
 source:
   api_endpoint: http://data.ecan.govt.nz/
   hts: WQLawa2019.hts
-  min_date: '1960-01-01'
   std_factor: 4
   iqr_factor: 4
   mtypes:

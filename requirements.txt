@@ -1,2 +1,3 @@
 pandas==1.2.3
 hilltop-py==1.4.15
+pyyaml

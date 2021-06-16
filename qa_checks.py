@@ -162,13 +162,25 @@ def std_outliers(res, stats, factor):
     DataFrame
 
     """
-    col_name = 'std*' + str(factor) + ' + mean'
-    std1 = ((stats['standard deviation']*factor) + stats['mean'])
-    std1.name = col_name
-    data1 = pd.merge(res.reset_index(), std1.reset_index(), on=['Site', 'Measurement'])
-    data2 = data1[data1['Value'] > data1[col_name]].copy()
+    col_name1 = 'mean + std*' + str(factor)
+    std1 = (stats['mean'] + (stats['standard deviation']*factor))
+    std1.name = col_name1
 
-    return data2
+    col_name2 = 'mean - std*' + str(factor)
+    std2 = (stats['mean'] - (stats['standard deviation']*factor))
+    std2.name = col_name2
+
+    std2.loc[std2 < 0] = 0
+
+    std = pd.concat([std1, std2], axis=1)
+
+    data1 = pd.merge(res.reset_index(), std.reset_index(), on=['Site', 'Measurement'])
+    data2 = data1[data1['Value'] > data1[col_name1]]
+    data3 = data1[data1['Value'] < data1[col_name2]]
+
+    data4 = pd.concat([data2, data3])
+
+    return data4
 
 
 def iqr_outliers(res, stats, factor):
@@ -188,13 +200,25 @@ def iqr_outliers(res, stats, factor):
     -------
     DataFrame
     """
-    col_name = 'IQR*' + str(factor) + ' + Q3'
-    std1 = ((stats['Q3'] - stats['Q1'])*factor + stats['Q3'])
-    std1.name = col_name
-    data1 = pd.merge(res.reset_index(), std1.reset_index(), on=['Site', 'Measurement'])
-    data2 = data1[data1['Value'] > data1[col_name]].copy()
+    col_name1 = 'Q3 + IQR*' + str(factor)
+    std1 = (stats['Q3'] + (stats['Q3'] - stats['Q1'])*factor)
+    std1.name = col_name1
 
-    return data2
+    col_name2 = 'Q3 - IQR*' + str(factor)
+    std2 = (stats['Q3'] - (stats['Q3'] - stats['Q1'])*factor)
+    std2.name = col_name2
+
+    std2.loc[std2 < 0] = 0
+
+    std = pd.concat([std1, std2], axis=1)
+
+    data1 = pd.merge(res.reset_index(), std.reset_index(), on=['Site', 'Measurement'])
+    data2 = data1[data1['Value'] > data1[col_name1]]
+    data3 = data1[data1['Value'] < data1[col_name2]]
+
+    data4 = pd.concat([data2, data3])
+
+    return data4
 
 
 def dtl_outliers(res, dtl):
